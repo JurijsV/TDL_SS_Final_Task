@@ -1,39 +1,27 @@
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.BeforeClass;
-
-import java.io.File;
-import java.io.IOException;
+import org.openqa.selenium.WebElement;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.Test;
 
 
 public class FinalTask extends TestBase {
     private WebDriver driver;
-    static ExtentReports report;
 
-    @BeforeClass
-    public static void startTest() throws IOException {
-        String reportPath =
-                "src" + File.separator +
-                        "main" + File.separator +
-                        "resources" + File.separator +
-                        "reports" + File.separator +
-                        "TestReport.html";
-        String configPath =
-                "src" + File.separator +
-                        "main" + File.separator +
-                        "resources" + File.separator +
-                        "configs" + File.separator +
-                        "extentreports" + File.separator +
-                        "spark-config.xml";
-        report = new ExtentReports();
-        ExtentSparkReporter sparkReporter = new ExtentSparkReporter(reportPath);
-        sparkReporter.loadXMLConfig(configPath);
-        sparkReporter.config().setReportName("Sample Extent Report");
-        report.setSystemInfo("Project", "JurijsV_TDL_SS_Final_Task");
-        report.setSystemInfo("Creator", "Jurijs Vaseckins");
-        report.attachReporter(sparkReporter);
+    @Test
+    public void firstTest(){
 
-
+        driver.get ("https://www.globalsqa.com/demo-site/");
+        WebElement dialogBoxButton = driver.findElement(By.xpath(
+                "//*[@id=\"post-2715\"]/div[2]/div/div/div[2]/div[1]/ul/li[6]/a"
+        ));
     }
+    @AfterTest
+    public void exitTest(){
+        driver.close();
+        driver.quit();
+    }
+
+
+
 }
